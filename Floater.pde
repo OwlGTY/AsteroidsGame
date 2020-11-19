@@ -1,14 +1,27 @@
-class Floater //Do NOT modify the Floater class! Make changes in the Spaceship class 
-{   
-  protected int corners;  //the number of corners, a triangular floater has 3   
-  protected int[] xCorners;   
-  protected int[] yCorners;   
-  protected int myColor;   
-  protected double myCenterX, myCenterY; //holds center coordinates   
-  protected double myXspeed, myYspeed; //holds the speed of travel in the x and y directions   
-  protected double myPointDirection; //holds current direction the ship is pointing in degrees    
+class Floater
+{
+ protected double myCenterX, myCenterY;
+  //holds center coordinates
 
-  //Accelerates the floater in the direction it is pointing (myPointDirection)   
+  protected double myXspeed, myYspeed; 
+  //holds the speed of travel    
+  //in the x and y directions
+
+  protected double myPointDirection; 
+  //holds current direction the floater is pointing
+  //in degrees
+  
+  protected int corners;
+  //the number of corners, a triangular
+  //floater has 3
+
+  protected int[] xCorners;
+  protected int[] yCorners;
+  //The coordinates of the corners, with center of
+  //object at (0,0) and myPointDirection=0 (right)
+
+  protected int myColor;
+  
   public void accelerate (double dAmount)   
   {          
     //convert the current direction the floater is pointing to radians    
@@ -73,4 +86,4 @@ class Floater //Do NOT modify the Floater class! Make changes in the Spaceship c
     rotate(-1*dRadians);
     translate(-1*(float)myCenterX, -1*(float)myCenterY);
   }   
-} 
+}
