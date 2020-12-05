@@ -1,3 +1,4 @@
+ArrayList <Asteroid> debris = new ArrayList <Asteroid>();
 Spaceship bob = new Spaceship();//declares the spaceship
 Star[] nightSky = new Star[200];//declares the array of stars
 public void setup() 
@@ -9,6 +10,9 @@ public void setup()
   {
     nightSky[i] = new Star();//declares each star within the array
   }
+  for(int nI = 0; nI < 15; nI++) {
+    debris.add(new Asteroid());
+  }
 }
 public void draw() 
 {
@@ -18,6 +22,14 @@ public void draw()
   for (int i = 0; i < nightSky.length; i++)
   {
     nightSky[i].show();//initializes the array of stars
+  }
+  for (int h = 0; h < debris.size(); h++) {
+  debris.get(h).move();
+  debris.get(h).accelerate(.01);
+  debris.get(h).show();
+  if (dist((float)bob.myCenterX, (float)bob.myCenterY, (float)debris.get(h).getMyCenterX(), (float)debris.get(h).getMyCenterY()) < 20) {
+    debris.remove(h);
+  }
   }
 }
 
@@ -30,7 +42,7 @@ public void keyPressed(){
     bob.myPointDirection = (int)(Math.random()*360);
   }
   if(key == 'w'){//moves the spaceship toward where it's facing
-    bob.accelerate(0.5);
+    bob.accelerate(0.1);
     bob.move();
   }
   if(key == 'a'){//turns left
@@ -40,7 +52,7 @@ public void keyPressed(){
     bob.turn(5);
   }
   if(key == 's'){//accelerates the spaceship backwards
-    bob.accelerate(-0.5);
+    bob.accelerate(-0.1);
     bob.move();
   }
 }
