@@ -1,11 +1,11 @@
 ArrayList <Asteroid> debris = new ArrayList <Asteroid>();
 Spaceship bob = new Spaceship();//declares the spaceship
 Star[] nightSky = new Star[200];//declares the array of stars
+ArrayList <Bullet> shots = new ArrayList <Bullet>();
 public void setup() 
 {
   size(500,500);
   background(0);
-  bob.accelerate(0.2);
   for (int i = 0; i < nightSky.length; i++)
   {
     nightSky[i] = new Star();//declares each star within the array
@@ -23,13 +23,24 @@ public void draw()
   {
     nightSky[i].show();//initializes the array of stars
   }
-  for (int h = 0; h < debris.size(); h++) {
-  debris.get(h).move();
-  debris.get(h).accelerate(.01);
-  debris.get(h).show();
-  if (dist((float)bob.myCenterX, (float)bob.myCenterY, (float)debris.get(h).getMyCenterX(), (float)debris.get(h).getMyCenterY()) < 20) {
-    debris.remove(h);
+  for (int j = 0; j < shots.size(); j++) {
+    shots.get(j).move();
+    shots.get(j).show();
+    for (int k = 0; k < debris.size(); k++) {
+      if (dist((float)shots.get(j).getX(), (float)shots.get(j).getY(), (float)debris.get(k).getMyCenterX(), (float)debris.get(k).getMyCenterY()) < 10) {
+        shots.remove(j);
+        debris.remove(k);
+        break;
+      }
+    }
   }
+  for (int h = 0; h < debris.size(); h++) {
+    debris.get(h).move();
+    debris.get(h).accelerate(.01);
+    debris.get(h).show();
+    if (dist((float)bob.getX(), (float)bob.getY(), (float)debris.get(h).getMyCenterX(), (float)debris.get(h).getMyCenterY()) < 20) {
+      debris.remove(h);
+    }
   }
 }
 
@@ -54,5 +65,8 @@ public void keyPressed(){
   if(key == 's'){//accelerates the spaceship backwards
     bob.accelerate(-0.1);
     bob.move();
+  }
+  if(key == ' '){
+    shots.add(new Bullet(bob));
   }
 }
